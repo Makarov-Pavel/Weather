@@ -1,11 +1,9 @@
-import React, { useCallback, useEffect, useRef, useState } from 'react'
-import debounce from "lodash.debounce"
-import './App.css'
-import { AiOutlineClose } from 'react-icons/ai'
+import React, {  useEffect, useRef, useState } from 'react'
+import Search from '../Search/Search'
+
 
 const App: React.FC = () => {
 
-  const [inputValue,setInputValue] = useState('')
   const [search,setSearch] = useState('')
   const [responseCity,setResponseCity] = useState('')
   const [temp,setTemp] = useState('')
@@ -14,26 +12,13 @@ const App: React.FC = () => {
   const [error,setError] = useState('')
   const firstRender = useRef(true)
 
-  const debounceFunc = useCallback(
-    debounce((str:string)=>{
-      setSearch(str)
-    }, 1200),[])
-
-  const onChangeInputValue = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
-    setInputValue(e.target.value)
-    debounceFunc(e.target.value)
-  },[])
-
-  const onResetInput = () => {
-    setInputValue('')
-    setSearch('')
-  }
+  
 
   useEffect(()=>{
     setResponseCity('')
     setError('')
     if(!firstRender.current && search !== ''){
-      fetch(`https://api.weatherapi.com/v1/current.json?key=5279003b192d475ab1b210641230503&q=${search}`)
+      fetch(`https://api.weatherapi.com/v1/current.json?key=5279003b192d475ab1b210641230503&q=${search}&lang=ru`)
       .then(res => {if(!res.ok){
             setError('No matching location found')
           }else {
@@ -53,13 +38,7 @@ const App: React.FC = () => {
 
   return (
     <div className='appContainer'>
-    <input
-    className={`inputField ${error && search !== '' && 'errorInput'} ${responseCity !== '' && 'okInput'}`}
-    value={inputValue}
-    placeholder='Enter a location...'
-    onChange={onChangeInputValue}
-    />
-    {inputValue !== '' && <AiOutlineClose onClick={onResetInput}/>}
+    <Search error={error} search={search} responseCity={responseCity} setSearch={setSearch} />
 
     {error !== '' && <div className='errorContainer'>{error}</div>}
     {search && error === '' && <div className='infoContainer'>

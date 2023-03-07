@@ -23,3 +23,62 @@ ul {
     margin: 0;
     padding: 0;
 }
+
+:root{
+    --mainTextColor:#DFAA6D;
+    --secondaryTextColor:#DDC2A6;
+}
+
+.appContainer{
+    margin: 100px auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background-color: #1F1E20;
+    width: max-content;
+    min-width: 250px;
+    border-radius: 15px;
+    padding-top: 10px;
+}
+.inputField{
+    border: none;
+    border-bottom: 1px solid #fff;
+    background-color: transparent;
+    color: var(--mainTextColor);
+    text-align: center;
+    margin-bottom: 20px;
+}
+.inputField:focus{
+    outline:none;
+}
+.errorInput{
+    border:1px solid red;
+}
+.okInput{
+    border-bottom: 1px solid green;
+}
+.errorContainer,
+.infoContainer{
+    color: var(--secondaryTextColor);
+    padding: 0 10px 10px;
+}
+.infoContainer img{
+    display: block;
+    margin: 10px auto 0;
+}
+.searchText,
+.tempText,
+.timeText{
+    color: var(--mainTextColor)
+}
+.searchContainer{
+    position: relative;
+}
+.resetInput{
+    color: red;
+    cursor: pointer;
+    position: absolute;
+    top: 5%;
+    right: 0%;
+}
